@@ -8,51 +8,21 @@ public class day1{
 	find distance between two values, then add all distance values into 
 	one and return said integer.*/
 
-	public static Map<Integer, Integer> data = new HashMap<>();
-	public static List<Integer> list1 = new LinkedList<>();
-	public static List<Integer> list2 = new LinkedList<>();
+	public static List<Integer> list1 = new ArrayList<>();
+	public static List<Integer> list2 = new ArrayList<>();
 
 	public static void getData(){
 		//method to read data from file and add to "data" hashmap
 		try{
 			Scanner scanner = new Scanner(new File("data.txt"));
 			while (scanner.hasNextLine()){
-				data.put(scanner.nextInt(),scanner.nextInt());
+				list1.add(scanner.nextInt());
+				list2.add(scanner.nextInt());
 			}
 			scanner.close();
 		}catch (FileNotFoundException e){
 			e.printStackTrace();
 		}
-	}
-
-	//takes given list and sorts by key, returns as list
-	public static List<Integer> sortByKey(Map<Integer,Integer> map){
-		List<Map.Entry<Integer,Integer>> list = new LinkedList<Map.Entry<Integer, Integer>>(map.entrySet());
-
-		Collections.sort(list, (l1, l2) -> l1.getKey().compareTo(l2.getKey()));
-
-		List<Integer> sortedKeyList = new LinkedList<Integer>();
-		for (Map.Entry<Integer,Integer> x : list){
-			sortedKeyList.add(x.getKey());
-		}
-		return sortedKeyList;
-	}
-
-	//takes given list and sorts by value, returns as list
-	public static List<Integer> sortByValue(Map<Integer,Integer> map){
-		List<Map.Entry<Integer,Integer>> list = new LinkedList<Map.Entry<Integer, Integer>>(map.entrySet());
-
-		Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>(){
-			public int compare(Map.Entry<Integer,Integer> l1, Map.Entry<Integer,Integer> l2){
-				return (l1.getValue().compareTo(l2.getValue()));
-			}
-		});
-
-		List<Integer> sortedValueList = new LinkedList<Integer>();
-		for (Map.Entry<Integer,Integer> x : list){
-			sortedValueList.add(x.getValue());
-		}
-		return sortedValueList;
 	}
 
 	//manhattan distance calc
@@ -71,7 +41,7 @@ public class day1{
 
 	public static int similarity(){
 		int similarityScore = 0;
-		Map<Integer,Integer> duplicates = new LinkedHashMap<>();
+		Map<Integer,Integer> duplicates = new HashMap<>();
 		for(int value : list2){
 			if(duplicates.containsKey(value)){
 				duplicates.put(value, duplicates.get(value) + 1);
@@ -91,11 +61,10 @@ public class day1{
 	public static void main(String[] args) {
 		//sort data with methods
 		getData();
-		list1 = sortByKey(data);
-		list2 = sortByValue(data);
+		Collections.sort(list1);
+		Collections.sort(list2);
 
 		System.out.println("part1: "+distance(list1,list2));
 		System.out.println("part2: "+similarity());
 	}
 }
-
