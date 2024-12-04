@@ -12,7 +12,6 @@ public class day1{
 	public static List<Integer> list2 = new ArrayList<>();
 
 	public static void getData(){
-		//method to read data from file and add to "data" hashmap
 		try{
 			Scanner scanner = new Scanner(new File("data.txt"));
 			while (scanner.hasNextLine()){
@@ -34,8 +33,7 @@ public class day1{
 		return distanceSum;
 	}
 
-	/* part 2: take sorted lists, put into hashmap, iterate through and multiply amount of key/value pairs, 
-	add product to integer and return it */
+	//part 2: take sorted lists, put into hashmap, iterate through and multiply amount of key/value pairs, add product to integer and return it
 
 	//if value is 3 in list1, find amount of times 3 is in list2, multiply 3 by that value, add to similarity score, go next
 
@@ -54,13 +52,12 @@ public class day1{
 				similarityScore += value * duplicates.get(value);
 			}
 		}
-
 		return similarityScore;
 	}
 
 	public static void main(String[] args) {
-		//sort data with methods
 		getData();
+		//sort data with methods
 		Collections.sort(list1);
 		Collections.sort(list2);
 
