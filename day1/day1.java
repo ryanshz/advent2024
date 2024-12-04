@@ -11,7 +11,6 @@ public class day1{
 	public static Map<Integer, Integer> data = new HashMap<>();
 	public static List<Integer> list1 = new LinkedList<>();
 	public static List<Integer> list2 = new LinkedList<>();
-	public static Map<Integer, Integer> similarityMap = new HashMap<>();
 
 	public static void getData(){
 		//method to read data from file and add to "data" hashmap
@@ -70,7 +69,7 @@ public class day1{
 
 	/* if value is 3 in list1, find amount of times 3 is in list2, multiply 3 by that value, add to similarity score, go next */
 
-	public static int similarity(Map<Integer,Integer> map){
+	public static int similarity(){
 		int similarityScore = 0;
 		for(int i=0;i<list1.size();i++){
 			int leftListValue = list1.get(i);
@@ -92,12 +91,8 @@ public class day1{
 		list1 = sortByKey(data);
 		list2 = sortByValue(data);
 
-		for(int i=0;i<list1.size();i++){
-			similarityMap.put(list1.get(i), list2.get(i));
-		}
-
 		System.out.println("part1: "+distance(list1,list2));
-		System.out.println("part2: "+similarity(similarityMap));
+		System.out.println("part2: "+similarity());
 	}
 }
 
