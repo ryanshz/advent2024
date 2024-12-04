@@ -67,21 +67,24 @@ public class day1{
 	/* part 2: take sorted lists, put into hashmap, iterate through and multiply amount of key/value pairs, 
 	add product to integer and return it */
 
-	/* if value is 3 in list1, find amount of times 3 is in list2, multiply 3 by that value, add to similarity score, go next */
+	//if value is 3 in list1, find amount of times 3 is in list2, multiply 3 by that value, add to similarity score, go next
 
 	public static int similarity(){
 		int similarityScore = 0;
-		for(int i=0;i<list1.size();i++){
-			int leftListValue = list1.get(i);
-			int matchingTotal = 0;
-			for(int j=0;j<list2.size();j++){
-				if(leftListValue == list2.get(j)){
-					matchingTotal++;
-				}
+		Map<Integer,Integer> duplicates = new LinkedHashMap<>();
+		for(int value : list2){
+			if(duplicates.containsKey(value)){
+				duplicates.put(value, duplicates.get(value) + 1);
+			}else{
+				duplicates.put(value,1);
 			}
-			similarityScore += leftListValue*matchingTotal;
-			matchingTotal = 0;
 		}
+		for(int value : list1){
+			if(duplicates.containsKey(value)){
+				similarityScore += value * duplicates.get(value);
+			}
+		}
+
 		return similarityScore;
 	}
 
